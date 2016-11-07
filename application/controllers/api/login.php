@@ -10,7 +10,7 @@ class LOGIN extends REST_Controller
         $data = $this->db_model->CheckLoginData($this->get('username'), $this->get('password'));
 
         if($data)
-            $this->response(array('status' => $this->get('username')), 200); // 200 being the HTTP response code
+            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
         else
             $this->response(array('error' => 'Wrong Username or Password'), 200);
     }
