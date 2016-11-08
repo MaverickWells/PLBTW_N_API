@@ -5,7 +5,7 @@ class DB_MODEL extends CI_Model {
 	public function CheckLoginData($username, $password)
 	{
 		# code...
-		$link = mysqli_connect("localhost", "root", "", "plbtw");
+		$link = mysqli_connect("localhost", "root", "root", "plbtw");
 		$usr = mysqli_real_escape_string($link, $username);
 		$pwd = md5(mysqli_real_escape_string($link, $password));
 
