@@ -23,6 +23,13 @@ class NEWS_MODEL extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function GetLocationNews($location)
+	{
+		$query = $this->db->get_where('news', array('location' => $location));
+		//var_dump($query->row_array());
+		return $query->row_array();
+	}
+
 	public function DeleteNews($id)
 	{
 		$this->db->where('id_news', $id);

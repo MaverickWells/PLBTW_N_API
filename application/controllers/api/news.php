@@ -49,6 +49,19 @@ class NEWS extends REST_Controller
 			}
     }
 
+    function news_location_get($location)
+    {
+	        $data = $this->news_model->GetLocationNews($location);
+
+	        if($data)
+	            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
+	        else if(empty($location))
+	            $this->response(array('error' => 'No news location provided'), 404);
+			else {
+				$this->response(array('error' => 'Incorrect ID or Other Error'), 200);
+			}
+    }
+
     function news_post()
     {
         $link = mysqli_connect("localhost", "root", "root", "plbtw");
