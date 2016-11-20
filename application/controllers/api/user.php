@@ -10,9 +10,9 @@ class USER extends REST_Controller
         $data = $this->db_model->CheckLoginData($this->get('username'), $this->get('password'));
 
         if($data)
-            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
+            $this->response(array('result' => 'True'), 200); // 200 being the HTTP response code
         else
-            $this->response(array('error' => 'Wrong Username or Password'), 200);
+            $this->response(array('result' => 'Wrong Username or Password'), 200);
     }
 
     function login_post()
@@ -20,10 +20,10 @@ class USER extends REST_Controller
     	// $this->load->model('db_model');
         $data = $this->db_model->CheckLoginData($this->post('username'), $this->post('password'));
 
-        if($data)
-            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
+		if($data)
+            $this->response(array('result' => 'True'), 200); // 200 being the HTTP response code
         else
-           $this->response(array('error' => 'Wrong Username or Password'), 200);
+            $this->response(array('result' => 'Wrong Username or Password'), 200);
     }
 
     function user_get()
