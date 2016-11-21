@@ -45,4 +45,12 @@ class USER_MODEL extends CI_Model {
 
 		return $this->db->affected_rows();
 	}
+
+	public function CheckUsername($username)
+	{
+		$this->db->where('username', $username);
+		$this->db->get('user');
+
+		return $this->db->affected_rows();
+	}
 }

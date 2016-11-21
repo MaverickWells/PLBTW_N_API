@@ -41,56 +41,63 @@ class USER extends REST_Controller
             'role' => strtolower(mysqli_real_escape_string($link, $this->input->post('roles')))
         );
 
-        $result = $this->user_model->CreateUser($data);
+		$user_check = $this->user_model->CheckUsername($data['username']);
 
-        if($result > 0){
-			if($data['role'] == "developer"){
-				$md5 =  md5($data['username'].$data['password']);
-				$sha1 = sha1($md5);
-				$sha256 = hash('sha256', $sha1);
-				$sha512 = hash('sha512', $sha256);
+		if($user_check > 0){
+			$this->response(array(
+				'result' => 'Username Is Registered',
+				'affected_rows' => $user_check,
+				), REST_Controller::HTTP_OK
+			);
+		}
+		else{
+	        $result = $this->user_model->CreateUser($data);
 
-				$api_key_data = array(
-					'iduser' => $this->db->insert_id(),
-					'user_api_key' => $sha512
-			 	);
+	        if($result > 0){
+				if($data['role'] == "developer"){
+					$md5 =  md5($data['username'].$data['password']);
+					$sha1 = sha1($md5);
+					$sha256 = hash('sha256', $sha1);
+					$sha512 = hash('sha512', $sha256);
 
-				$api_key_result = $this->user_model->InsertAPIKEY($api_key_data);
+					$api_key_data = array(
+						'iduser' => $this->db->insert_id(),
+						'user_api_key' => $sha512
+				 	);
 
-				if($api_key_result > 0){
-					$this->response(array(
-		                'result' => 'Successful Insertion',
-		                'affected_rows' => $api_key_result,
-						'api_key' => $sha512,
-		                'status_code' => 200
-		                ), REST_Controller::HTTP_OK
-		            );
+					$api_key_result = $this->user_model->InsertAPIKEY($api_key_data);
+
+					if($api_key_result > 0){
+						$this->response(array(
+			                'result' => 'Successful Insertion',
+			                'affected_rows' => $api_key_result,
+							'api_key' => $sha512,
+			                ), REST_Controller::HTTP_OK
+			            );
+					}
+					else{
+			            $this->response(array(
+			                'result' => 'Failed Insertion',
+			                'affected_rows' => $result,
+			                ), REST_Controller::HTTP_OK
+			            );
+			        }
 				}
-				else{
-		            $this->response(array(
-		                'result' => 'Failed Insertion',
-		                'affected_rows' => $result,
-		                'status_code' => 200
-		                ), REST_Controller::HTTP_OK
-		            );
-		        }
-			}
 
-            $this->response(array(
-                'result' => 'Successful Insertion',
-                'affected_rows' => $result,
-                'status_code' => 200
-                ), REST_Controller::HTTP_OK
-            );
-        }
-        else{
-            $this->response(array(
-                'result' => 'Failed Insertion',
-                'affected_rows' => $result,
-                'status_code' => 200
-                ), REST_Controller::HTTP_OK
-            );
-        }
+	            $this->response(array(
+	                'result' => 'Successful Insertion',
+	                'affected_rows' => $result,
+	                ), REST_Controller::HTTP_OK
+	            );
+	        }
+	        else{
+	            $this->response(array(
+	                'result' => 'Failed Insertion',
+	                'affected_rows' => $result,
+	                ), REST_Controller::HTTP_OK
+	            );
+	        }
+		}
     }
 
     function user_put($iduser){
@@ -118,7 +125,6 @@ class USER extends REST_Controller
             $this->response(array(
                 'result' => 'Successful Update',
                 'affected_rows' => $result,
-                'status_code' => 200
                 ), REST_Controller::HTTP_OK
             );
         }
@@ -126,7 +132,6 @@ class USER extends REST_Controller
             $this->response(array(
                 'result' => 'Failed Update',
                 'affected_rows' => $result,
-                'status_code' => 200
                 ), REST_Controller::HTTP_OK
             );
         }
@@ -139,7 +144,6 @@ class USER extends REST_Controller
             $this->response(array(
                 'result' => 'Successful Delete',
                 'affected_rows' => $result,
-                'status_code' => 200
                 ), REST_Controller::HTTP_OK
             );
         }
@@ -147,7 +151,6 @@ class USER extends REST_Controller
             $this->response(array(
                 'result' => 'Failed Delete',
                 'affected_rows' => $result,
-                'status_code' => 200
                 ), REST_Controller::HTTP_OK
             );
         }
