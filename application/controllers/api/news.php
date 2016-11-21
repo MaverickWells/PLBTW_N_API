@@ -10,7 +10,7 @@ class NEWS extends REST_Controller
             $data = $this->news_model->GetAllNews();
 
 	        if($data)
-	            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
+	            $this->response(array('result' => $data), 200); // 200 being the HTTP response code
 	        else
 	            $this->response(array('error' => 'Wrong Username or Password'), 200);
 		}
@@ -25,7 +25,7 @@ class NEWS extends REST_Controller
             $data = $this->news_model->GetNews($id);
 
 	        if($data)
-	            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
+	            $this->response(array('result' => $data), 200); // 200 being the HTTP response code
 	        else if(empty($id))
 	            $this->response(array('error' => 'No news ID provided'), 404);
 			else {
@@ -43,7 +43,7 @@ class NEWS extends REST_Controller
 	        $data = $this->news_model->GetLocationNews($location);
 
 	        if($data)
-	            $this->response(array('status_code' => '200', 'result' => $data), 200); // 200 being the HTTP response code
+	            $this->response(array('result' => $data), 200); // 200 being the HTTP response code
 	        else if(empty($location))
 	            $this->response(array('error' => 'No news location provided'), 404);
 			else {
@@ -78,7 +78,6 @@ class NEWS extends REST_Controller
                     'result' => 'Successful Insertion',
                     'affected_rows' => $result,
     				'news_id' => $this->db->insert_id(),
-                    'status_code' => 200
                     ), REST_Controller::HTTP_OK
                 );
             }
@@ -86,7 +85,6 @@ class NEWS extends REST_Controller
                 $this->response(array(
                     'result' => 'Failed Insertion',
                     'affected_rows' => $result,
-                    'status_code' => 200
                     ), REST_Controller::HTTP_OK
                 );
             }
@@ -119,7 +117,6 @@ class NEWS extends REST_Controller
                 $this->response(array(
                     'result' => 'Successful Update',
                     'affected_rows' => $result,
-                    'status_code' => 200
                     ), REST_Controller::HTTP_OK
                 );
             }
@@ -127,7 +124,6 @@ class NEWS extends REST_Controller
                 $this->response(array(
                     'result' => 'Failed Update',
                     'affected_rows' => $result,
-                    'status_code' => 200
                     ), REST_Controller::HTTP_OK
                 );
             }
@@ -145,7 +141,6 @@ class NEWS extends REST_Controller
                 $this->response(array(
                     'result' => 'Successful Delete',
                     'affected_rows' => $result,
-                    'status_code' => 200
                     ), REST_Controller::HTTP_OK
                 );
             }
@@ -153,7 +148,6 @@ class NEWS extends REST_Controller
                 $this->response(array(
                     'result' => 'Failed Delete',
                     'affected_rows' => $result,
-                    'status_code' => 200
                     ), REST_Controller::HTTP_OK
                 );
             }
