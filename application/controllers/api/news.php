@@ -16,6 +16,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'all news',
                     'http_request_method' => 'POST',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -28,6 +30,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'all news',
                     'http_request_method' => 'POST',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -37,10 +41,12 @@ class NEWS extends REST_Controller
 		}
 		else {
             $api_data = array(
-                'api_key' => $this->post('api_key'),
+                'api_key' => 'No API KEY',
                 'function_request' => 'all news',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -61,6 +67,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news by id',
                     'http_request_method' => 'POST',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -73,6 +81,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news by id',
                     'http_request_method' => 'POST',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -85,6 +95,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news by id',
                     'http_request_method' => 'POST',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -94,10 +106,12 @@ class NEWS extends REST_Controller
 		}
 		else {
             $api_data = array(
-                'api_key' => $this->post('api_key'),
+                'api_key' => 'No API KEY',
                 'function_request' => 'news by id',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -118,6 +132,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news by location',
                     'http_request_method' => 'POST',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -130,6 +146,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news by location',
                     'http_request_method' => 'POST',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -142,6 +160,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news by location',
                     'http_request_method' => 'POST',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -151,10 +171,12 @@ class NEWS extends REST_Controller
 		}
 		else {
             $api_data = array(
-                'api_key' => $this->post('api_key'),
+                'api_key' => 'No API KEY',
                 'function_request' => 'news by location',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -187,6 +209,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news',
                     'http_request_method' => 'POST',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -204,6 +228,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news',
                     'http_request_method' => 'POST',
                     'http_code_response' => 403,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -216,10 +242,12 @@ class NEWS extends REST_Controller
 		}
 		else {
             $api_data = array(
-                'api_key' => $this->post('api_key'),
+                'api_key' => 'No API KEY',
                 'function_request' => 'news',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -253,6 +281,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news',
                     'http_request_method' => 'PUT',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -269,6 +299,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news',
                     'http_request_method' => 'PUT',
                     'http_code_response' => 403,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -281,10 +313,12 @@ class NEWS extends REST_Controller
 		}
 		else {
             $api_data = array(
-                'api_key' => $this->post('api_key'),
+                'api_key' => 'No API KEY',
                 'function_request' => 'news',
                 'http_request_method' => 'PUT',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -303,6 +337,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news',
                     'http_request_method' => 'DELETE',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -319,6 +355,8 @@ class NEWS extends REST_Controller
                     'function_request' => 'news',
                     'http_request_method' => 'DELETE',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -331,10 +369,12 @@ class NEWS extends REST_Controller
 		}
 		else {
             $api_data = array(
-                'api_key' => $this->post('api_key'),
+                'api_key' => 'No API KEY',
                 'function_request' => 'news',
                 'http_request_method' => 'DELETE',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);

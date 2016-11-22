@@ -19,6 +19,37 @@ class USER extends REST_Controller
     {
     	// $this->load->model('db_model');
 		if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
+            if(empty($this->post('username')))
+            {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'login',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 400,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+	            $this->response(array('result' => 'No Username'), 400);
+            }
+            else if(empty($this->post('password')))
+            {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'login',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 400,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+	            $this->response(array('result' => 'No Password'), 400);
+            }
+
 			$data = $this->db_model->CheckLoginData($this->post('username'), $this->post('password'));
 
 			if($data){
@@ -27,6 +58,8 @@ class USER extends REST_Controller
                     'function_request' => 'login',
                     'http_request_method' => 'POST',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -39,6 +72,8 @@ class USER extends REST_Controller
                     'function_request' => 'login',
                     'http_request_method' => 'POST',
                     'http_code_response' => 401,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -52,6 +87,8 @@ class USER extends REST_Controller
                 'function_request' => 'login',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -84,6 +121,8 @@ class USER extends REST_Controller
                     'function_request' => 'user',
                     'http_request_method' => 'POST',
                     'http_code_response' => 403,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -116,6 +155,8 @@ class USER extends REST_Controller
                                 'function_request' => 'user',
                                 'http_request_method' => 'POST',
                                 'http_code_response' => 200,
+                                'date' => date('Y-m-d'),
+                                'time' => date('H:i:s')
                             );
 
                             $this->api_model->CreateLog($api_data);
@@ -133,6 +174,8 @@ class USER extends REST_Controller
                                 'function_request' => 'user',
                                 'http_request_method' => 'POST',
                                 'http_code_response' => 403,
+                                'date' => date('Y-m-d'),
+                                'time' => date('H:i:s')
                             );
 
                             $this->api_model->CreateLog($api_data);
@@ -149,6 +192,8 @@ class USER extends REST_Controller
                         'function_request' => 'user',
                         'http_request_method' => 'POST',
                         'http_code_response' => 200,
+                        'date' => date('Y-m-d'),
+                        'time' => date('H:i:s')
                     );
 
                     $this->api_model->CreateLog($api_data);
@@ -165,6 +210,8 @@ class USER extends REST_Controller
                         'function_request' => 'user',
                         'http_request_method' => 'POST',
                         'http_code_response' => 403,
+                        'date' => date('Y-m-d'),
+                        'time' => date('H:i:s')
                     );
 
                     $this->api_model->CreateLog($api_data);
@@ -182,6 +229,8 @@ class USER extends REST_Controller
                 'function_request' => 'user',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -216,6 +265,8 @@ class USER extends REST_Controller
                     'function_request' => 'user',
                     'http_request_method' => 'PUT',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -232,6 +283,8 @@ class USER extends REST_Controller
                     'function_request' => 'user',
                     'http_request_method' => 'PUT',
                     'http_code_response' => 400,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -248,6 +301,8 @@ class USER extends REST_Controller
                 'function_request' => 'user',
                 'http_request_method' => 'PUT',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
@@ -266,6 +321,8 @@ class USER extends REST_Controller
                     'function_request' => 'user',
                     'http_request_method' => 'DELETE',
                     'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -282,6 +339,8 @@ class USER extends REST_Controller
                     'function_request' => 'user',
                     'http_request_method' => 'DELETE',
                     'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
                 );
 
                 $this->api_model->CreateLog($api_data);
@@ -298,6 +357,8 @@ class USER extends REST_Controller
                 'function_request' => 'user',
                 'http_request_method' => 'DELETE',
                 'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
             );
 
             $this->api_model->CreateLog($api_data);
