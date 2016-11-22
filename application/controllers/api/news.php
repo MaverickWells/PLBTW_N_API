@@ -4,160 +4,160 @@ require APPPATH.'/libraries/REST_Controller.php';
 
 class NEWS extends REST_Controller
 {
-    function all_news_get()
+    function all_news_post()
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
             $data = $this->news_model->GetAllNews();
 
 	        if($data)
             {
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'all news',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 200,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('result' => $data), 200); // 200 being the HTTP response code
             }
 	        else{
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'all news',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 404,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('result' => 'No News Content'), 404);
             }
 		}
 		else {
-            $data = array(
+            $api_data = array(
                 'api_key' => $this->post('api_key'),
                 'function_request' => 'all news',
-                'http_request_method' => 'GET',
+                'http_request_method' => 'POST',
                 'http_code_response' => 401,
             );
 
-            $this->api_model->CreateLog($data);
+            $this->api_model->CreateLog($api_data);
 
             $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
     }
 
-	function news_get($id)
+	function news_id_post($id)
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
             $data = $this->news_model->GetNews($id);
 
 	        if($data)
             {
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by id',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 200,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('result' => $data), 200); // 200 being the HTTP response code
             }
 	        else if(empty($id)){
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by id',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 404,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('error' => 'No news ID provided'), 404);
             }
 			else {
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by id',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 404,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('error' => 'Incorrect ID or Other Error'), 404);
 			}
 		}
 		else {
-            $data = array(
+            $api_data = array(
                 'api_key' => $this->post('api_key'),
                 'function_request' => 'news by id',
-                'http_request_method' => 'GET',
+                'http_request_method' => 'POST',
                 'http_code_response' => 401,
             );
 
-            $this->api_model->CreateLog($data);
+            $this->api_model->CreateLog($api_data);
 
             $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
     }
 
-    function news_location_get($location)
+    function news_location_post($location)
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
 	        $data = $this->news_model->GetLocationNews($location);
 
 	        if($data)
             {
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by location',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 200,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('result' => $data), 200); // 200 being the HTTP response code
             }
 	        else if(empty($location)){
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by location',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 404,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('error' => 'No news location provided'), 404);
             }
 			else {
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by location',
-                    'http_request_method' => 'GET',
+                    'http_request_method' => 'POST',
                     'http_code_response' => 404,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array('error' => 'Incorrect ID or Other Error'), 404);
 			}
 		}
 		else {
-            $data = array(
+            $api_data = array(
                 'api_key' => $this->post('api_key'),
                 'function_request' => 'news by location',
-                'http_request_method' => 'GET',
+                'http_request_method' => 'POST',
                 'http_code_response' => 401,
             );
 
-            $this->api_model->CreateLog($data);
+            $this->api_model->CreateLog($api_data);
 
             $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
@@ -182,14 +182,14 @@ class NEWS extends REST_Controller
             $result = $this->news_model->CreateNews($data);
 
             if($result > 0){
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news',
                     'http_request_method' => 'POST',
                     'http_code_response' => 200,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array(
                     'result' => 'Successful Insertion',
@@ -199,14 +199,14 @@ class NEWS extends REST_Controller
                 );
             }
             else{
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news',
                     'http_request_method' => 'POST',
                     'http_code_response' => 403,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array(
                     'result' => 'Failed Insertion',
@@ -215,14 +215,14 @@ class NEWS extends REST_Controller
             }
 		}
 		else {
-            $data = array(
+            $api_data = array(
                 'api_key' => $this->post('api_key'),
                 'function_request' => 'news',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
             );
 
-            $this->api_model->CreateLog($data);
+            $this->api_model->CreateLog($api_data);
 
 			$this->response(array('result' => 'No API KEY Provided'), 401);
 		}
@@ -248,14 +248,14 @@ class NEWS extends REST_Controller
             $result = $this->news_model->UpdateNews($data, $idnews);
 
             if($result > 0){
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news',
                     'http_request_method' => 'PUT',
                     'http_code_response' => 200,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array(
                     'result' => 'Successful Update',
@@ -264,14 +264,14 @@ class NEWS extends REST_Controller
                 );
             }
             else{
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news',
                     'http_request_method' => 'PUT',
                     'http_code_response' => 403,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array(
                     'result' => 'Failed Update',
@@ -280,14 +280,14 @@ class NEWS extends REST_Controller
             }
 		}
 		else {
-            $data = array(
+            $api_data = array(
                 'api_key' => $this->post('api_key'),
                 'function_request' => 'news',
                 'http_request_method' => 'PUT',
                 'http_code_response' => 401,
             );
 
-            $this->api_model->CreateLog($data);
+            $this->api_model->CreateLog($api_data);
 
 			$this->response(array('result' => 'No API KEY Provided'), 401);
 		}
@@ -298,14 +298,14 @@ class NEWS extends REST_Controller
             $result = $this->news_model->DeleteNews($idnews);
 
             if($result > 0){
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news',
                     'http_request_method' => 'DELETE',
                     'http_code_response' => 200,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array(
                     'result' => 'Successful Delete',
@@ -314,14 +314,14 @@ class NEWS extends REST_Controller
                 );
             }
             else{
-                $data = array(
+                $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news',
                     'http_request_method' => 'DELETE',
                     'http_code_response' => 404,
                 );
 
-                $this->api_model->CreateLog($data);
+                $this->api_model->CreateLog($api_data);
 
                 $this->response(array(
                     'result' => 'Failed Delete',
@@ -330,14 +330,14 @@ class NEWS extends REST_Controller
             }
 		}
 		else {
-            $data = array(
+            $api_data = array(
                 'api_key' => $this->post('api_key'),
                 'function_request' => 'news',
                 'http_request_method' => 'DELETE',
                 'http_code_response' => 401,
             );
 
-            $this->api_model->CreateLog($data);
+            $this->api_model->CreateLog($api_data);
 
 			$this->response(array('result' => 'No API KEY Provided'), 401);
 		}
