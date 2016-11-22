@@ -9,4 +9,9 @@ class API_MODEL extends CI_Model {
 
         return $this->db->affected_rows();
     }
+
+    public function CreateLog($data)
+    {
+        $this->db->insert('request_log', $data);
+    }
 }

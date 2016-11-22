@@ -21,13 +21,42 @@ class USER extends REST_Controller
 		if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
 			$data = $this->db_model->CheckLoginData($this->post('username'), $this->post('password'));
 
-			if($data)
-	            $this->response(array('result' => 'True'), 200); // 200 being the HTTP response code
-	        else
-	            $this->response(array('result' => 'Wrong Username or Password'), 200);
+			if($data){
+                $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'login',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 200,
+                );
+
+                $this->api_model->CreateLog($data);
+
+                $this->response(array('result' => 'True'), 200); // 200 being the HTTP response code
+            }
+	        else{
+	            $this->response(array('result' => 'Wrong Username or Password'), 401);
+
+                $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'login',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 401,
+                );
+
+                $this->api_model->CreateLog($data);
+            }
 		}
 		else {
-			$this->response(array('result' => 'No API KEY Provided'), 401);
+            $data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'login',
+                'http_request_method' => 'POST',
+                'http_code_response' => 401,
+            );
+
+            $this->api_model->CreateLog($data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
     }
 
@@ -50,11 +79,19 @@ class USER extends REST_Controller
 			$user_check = $this->user_model->CheckUsername($data['username']);
 
 			if($user_check > 0){
-				$this->response(array(
+                $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 403,
+                );
+
+                $this->api_model->CreateLog($data);
+
+                $this->response(array(
 					'result' => 'Username Is Registered',
 					'affected_rows' => $user_check,
-					), REST_Controller::HTTP_OK
-				);
+                ), 403);
 			}
 			else{
 		        $result = $this->user_model->CreateUser($data);
@@ -74,7 +111,16 @@ class USER extends REST_Controller
 						$api_key_result = $this->user_model->InsertAPIKEY($api_key_data);
 
 						if($api_key_result > 0){
-							$this->response(array(
+                            $data = array(
+                                'api_key' => $this->post('api_key'),
+                                'function_request' => 'user',
+                                'http_request_method' => 'POST',
+                                'http_code_response' => 200,
+                            );
+
+                            $this->api_model->CreateLog($data);
+
+                            $this->response(array(
 				                'result' => 'Successful Insertion',
 				                'affected_rows' => $api_key_result,
 								'api_key' => $sha512,
@@ -82,31 +128,65 @@ class USER extends REST_Controller
 				            );
 						}
 						else{
-				            $this->response(array(
+                            $data = array(
+                                'api_key' => $this->post('api_key'),
+                                'function_request' => 'user',
+                                'http_request_method' => 'POST',
+                                'http_code_response' => 403,
+                            );
+
+                            $this->api_model->CreateLog($data);
+
+                            $this->response(array(
 				                'result' => 'Failed Insertion',
 				                'affected_rows' => $result,
-				                ), REST_Controller::HTTP_OK
-				            );
+                            ), 403);
 				        }
 					}
 
-		            $this->response(array(
+                    $data = array(
+                        'api_key' => $this->post('api_key'),
+                        'function_request' => 'user',
+                        'http_request_method' => 'POST',
+                        'http_code_response' => 200,
+                    );
+
+                    $this->api_model->CreateLog($data);
+
+                    $this->response(array(
 		                'result' => 'Successful Insertion',
 		                'affected_rows' => $result,
 		                ), REST_Controller::HTTP_OK
 		            );
 		        }
 		        else{
-		            $this->response(array(
+                    $data = array(
+                        'api_key' => $this->post('api_key'),
+                        'function_request' => 'user',
+                        'http_request_method' => 'POST',
+                        'http_code_response' => 403,
+                    );
+
+                    $this->api_model->CreateLog($data);
+
+                    $this->response(array(
 		                'result' => 'Failed Insertion',
 		                'affected_rows' => $result,
-		                ), REST_Controller::HTTP_OK
-		            );
+                    ), 403);
 		        }
 			}
 		}
 		else {
-			$this->response(array('result' => 'No API KEY Provided'), 401);
+            $data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'user',
+                'http_request_method' => 'POST',
+                'http_code_response' => 401,
+            );
+
+            $this->api_model->CreateLog($data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
     }
 
@@ -131,22 +211,48 @@ class USER extends REST_Controller
 	        $result = $this->user_model->UpdateUser($data, $iduser);
 
 	        if($result > 0){
-	            $this->response(array(
+                $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user',
+                    'http_request_method' => 'PUT',
+                    'http_code_response' => 200,
+                );
+
+                $this->api_model->CreateLog($data);
+
+                $this->response(array(
 	                'result' => 'Successful Update',
 	                'affected_rows' => $result,
 	                ), REST_Controller::HTTP_OK
 	            );
 	        }
 	        else{
-	            $this->response(array(
+                $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user',
+                    'http_request_method' => 'PUT',
+                    'http_code_response' => 400,
+                );
+
+                $this->api_model->CreateLog($data);
+
+                $this->response(array(
 	                'result' => 'Failed Update',
 	                'affected_rows' => $result,
-	                ), REST_Controller::HTTP_OK
-	            );
+                ), 400);
 	        }
 		}
 		else {
-			$this->response(array('result' => 'No API KEY Provided'), 401);
+            $data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'user',
+                'http_request_method' => 'PUT',
+                'http_code_response' => 401,
+            );
+
+            $this->api_model->CreateLog($data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
     }
 
@@ -155,22 +261,48 @@ class USER extends REST_Controller
 			$result = $this->user_model->DeleteUser($iduser);
 
 	        if($result > 0){
-	            $this->response(array(
+                $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user',
+                    'http_request_method' => 'DELETE',
+                    'http_code_response' => 200,
+                );
+
+                $this->api_model->CreateLog($data);
+
+                $this->response(array(
 	                'result' => 'Successful Delete',
 	                'affected_rows' => $result,
 	                ), REST_Controller::HTTP_OK
 	            );
 	        }
 	        else{
-	            $this->response(array(
+	            $data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user',
+                    'http_request_method' => 'DELETE',
+                    'http_code_response' => 404,
+                );
+
+                $this->api_model->CreateLog($data);
+
+                $this->response(array(
 	                'result' => 'Failed Delete',
 	                'affected_rows' => $result,
-	                ), REST_Controller::HTTP_OK
-	            );
+                ), 404);
 	        }
 		}
 		else {
-			$this->response(array('result' => 'No API KEY Provided'), 401);
+            $data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'user',
+                'http_request_method' => 'DELETE',
+                'http_code_response' => 401,
+            );
+
+            $this->api_model->CreateLog($data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
 		}
     }
 }
