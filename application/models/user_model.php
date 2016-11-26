@@ -16,11 +16,25 @@ class USER_MODEL extends CI_Model {
 		return $query->result();
 	}
 
+	public function GetUserID($username)
+	{
+		$query = $this->db->get_where('user', array('username' => $username));
+		//var_dump($query->row_array());
+		return $query->row_array();
+	}
+
 	public function GetUser($id)
 	{
 		$query = $this->db->get_where('user', array('iduser' => $id));
 		//var_dump($query->row_array());
-		return $query->row_array();
+		return $query->result();
+	}
+
+	public function GetUserPref($id)
+	{
+		$query = $this->db->get_where('user_pref', array('id_user_pref' => $id));
+
+		return $query->result();
 	}
 
 	public function DeleteUser($id)
