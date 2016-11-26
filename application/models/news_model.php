@@ -48,6 +48,23 @@ class NEWS_MODEL extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function GetCategoryNews($category)
+	{
+		$query = $this->db->get_where('news', array('category' => $category));
+		//var_dump($query->row_array());
+		return $query->result();
+	}
+
+	public function GetOneCategoryNews($category, $id)
+	{
+		$query = $this->db->get_where('news', array(
+			'category' => $category,
+			'id_news' => $id
+		));
+		//var_dump($query->row_array());
+		return $query->row_array();
+	}
+
 	public function GetUserPrefNews($category, $sub_category)
 	{
 		$query = $this->db->get_where('news', array(
