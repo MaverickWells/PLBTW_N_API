@@ -4,6 +4,108 @@ require APPPATH.'/libraries/REST_Controller.php';
 
 class NEWS extends REST_Controller
 {
+    function category_post()
+    {
+        if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
+            $data = $this->news_model->GetNewsCategory();
+
+	        if($data)
+            {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'news category',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => $data), 200); // 200 being the HTTP response code
+            }
+	        else{
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'news category',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => 'No News Content'), 404);
+            }
+		}
+		else {
+            $api_data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'news category',
+                'http_request_method' => 'POST',
+                'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
+            );
+
+            $this->api_model->CreateLog($api_data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
+		}
+    }
+
+    function sub_category_post()
+    {
+        if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
+            $data = $this->news_model->GetNewsSubCategory();
+
+	        if($data)
+            {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'news sub category',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => $data), 200); // 200 being the HTTP response code
+            }
+	        else{
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'news sub category',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => 'No News Content'), 404);
+            }
+		}
+		else {
+            $api_data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'news sub category',
+                'http_request_method' => 'POST',
+                'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
+            );
+
+            $this->api_model->CreateLog($api_data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
+		}
+    }
+
     function all_news_post()
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
@@ -43,6 +145,60 @@ class NEWS extends REST_Controller
             $api_data = array(
                 'api_key' => 'No API KEY',
                 'function_request' => 'all news',
+                'http_request_method' => 'POST',
+                'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
+            );
+
+            $this->api_model->CreateLog($api_data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
+		}
+    }
+
+    function user_pref_news_post()
+    {
+        if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
+            $data = $this->news_model->GetUserPrefNews(
+                $this->post('category'),
+                $this->post('sub_category')
+            );
+
+	        if($data)
+            {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user pref news',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => $data), 200); // 200 being the HTTP response code
+            }
+	        else{
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'user pref news',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => 'No News Content'), 404);
+            }
+		}
+		else {
+            $api_data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'user pref news',
                 'http_request_method' => 'POST',
                 'http_code_response' => 401,
                 'date' => date('Y-m-d'),

@@ -39,6 +39,13 @@ class USER_MODEL extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function CreateUserPref($data)
+	{
+		$this->db->insert('user_pref', $data);
+
+		return $this->db->affected_rows();
+	}
+
 	public function InsertAPIKEY($data)
 	{
 		$this->db->insert('api_key', $data);

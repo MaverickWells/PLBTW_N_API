@@ -182,10 +182,54 @@ class USER extends REST_Controller
 
                             $this->response(array(
 				                'result' => 'Failed Insertion',
-				                'affected_rows' => $result,
+				                'affected_rows' => $api_key_result,
                             ), 403);
 				        }
 					}
+                    elseif ($data['role'] == "user") {
+                        $user_pref = array(
+                            'news_category_pref' => $this->post('category_pref'),
+                            'news_sub_category_pref' => $this->post('sub_category_pref'),
+                        );
+
+                        $user_pref_result = $this->user_model->CreateUserPref($user_pref);
+
+                        if($user_pref_result > 0){
+                            $api_data = array(
+                                'api_key' => $this->post('api_key'),
+                                'function_request' => 'user',
+                                'http_request_method' => 'POST',
+                                'http_code_response' => 200,
+                                'date' => date('Y-m-d'),
+                                'time' => date('H:i:s')
+                            );
+
+                            $this->api_model->CreateLog($api_data);
+
+                            $this->response(array(
+				                'result' => 'Successful Insertion',
+				                'affected_rows' => $user_pref_result,
+				                ), REST_Controller::HTTP_OK
+				            );
+                        }
+                        else {
+                            $api_data = array(
+                                'api_key' => $this->post('api_key'),
+                                'function_request' => 'user',
+                                'http_request_method' => 'POST',
+                                'http_code_response' => 403,
+                                'date' => date('Y-m-d'),
+                                'time' => date('H:i:s')
+                            );
+
+                            $this->api_model->CreateLog($api_data);
+
+                            $this->response(array(
+				                'result' => 'Failed Insertion',
+				                'affected_rows' => $user_pref_result,
+                            ), 403);
+                        }
+                    }
 
                     $api_data = array(
                         'api_key' => $this->post('api_key'),
