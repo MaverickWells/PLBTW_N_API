@@ -53,9 +53,6 @@ class USER extends REST_Controller
 			$data = $this->db_model->CheckLoginData($this->post('username'), $this->post('password'));
 
 			if($data){
-                $user_id = $this->user_model->GetUserID($this->post('username'));
-                $user_pref = $this->user_model->GetUserPref($user_id['iduser']);
-                var_dump($user_pref);
                 $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'login',
@@ -67,7 +64,14 @@ class USER extends REST_Controller
 
                 $this->api_model->CreateLog($api_data);
 
-                //$this->response(array('result' => 'True'), 200); // 200 being the HTTP response code
+                $user_id = $this->user_model->GetUserID($this->post('username'));
+                $user_pref = $this->user_model->GetUserPref($user_id['iduser']);
+
+                $this->response(array(
+                    'result' => 'True',
+                    'category' => $user_pref['news_category_pref'],
+                    'sub_category' => $user_pref['news_sub_category_pref'],
+                ), 200); // 200 being the HTTP response code
             }
 	        else{
                 $api_data = array(

@@ -32,9 +32,9 @@ class USER_MODEL extends CI_Model {
 
 	public function GetUserPref($id)
 	{
-		$query = $this->db->get_where('user_pref', array('id_user_pref' => $id));
+		$query = $this->db->get_where('user_pref', array('iduser' => $id));
 
-		return $query->result();
+		return $query->row_array();
 	}
 
 	public function DeleteUser($id)
