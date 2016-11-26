@@ -69,6 +69,8 @@ class USER extends REST_Controller
 
                 $this->response(array(
                     'result' => 'True',
+                    'username' => $this->post('username'),
+                    'password' => $this->post('password'),
                     'category' => $user_pref['news_category_pref'],
                     'sub_category' => $user_pref['news_sub_category_pref'],
                 ), 200); // 200 being the HTTP response code
