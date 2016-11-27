@@ -343,6 +343,57 @@ class NEWS extends REST_Controller
 		}
     }
 
+    function top_news_post()
+    {
+        if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
+	        $data = $this->news_model->GetTopNews();
+
+	        if($data)
+            {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'top news',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 200,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('result' => $data), 200); // 200 being the HTTP response code
+            }
+			else {
+                $api_data = array(
+                    'api_key' => $this->post('api_key'),
+                    'function_request' => 'top news',
+                    'http_request_method' => 'POST',
+                    'http_code_response' => 404,
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s')
+                );
+
+                $this->api_model->CreateLog($api_data);
+
+                $this->response(array('error' => 'Other Error'), 404);
+			}
+		}
+		else {
+            $api_data = array(
+                'api_key' => 'No API KEY',
+                'function_request' => 'top news',
+                'http_request_method' => 'POST',
+                'http_code_response' => 401,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s')
+            );
+
+            $this->api_model->CreateLog($api_data);
+
+            $this->response(array('result' => 'No API KEY Provided'), 401);
+		}
+    }
+
     function category_news_post()
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){

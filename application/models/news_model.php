@@ -2,6 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class NEWS_MODEL extends CI_Model {
+	public function GetTopNews()
+	{
+		$this->db->where('read_count != 0');
+		$this->db->order_by('read_count', 'desc');
+		$query = $this->db->get('news');
+
+		return $query->result();
+	}
+
 	public function GetNewsCategory()
 	{
 		$this->db->distinct();
