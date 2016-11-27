@@ -211,13 +211,15 @@ class NEWS extends REST_Controller
 		}
     }
 
-	function news_id_post($id)
+	function news_id_post()
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
-            $data = $this->news_model->GetNews($id);
+            $data = $this->news_model->GetNews($this->post('id_news'));
 
 	        if($data)
             {
+                $this->news_model->UpdateNewsReadCount($this->post('id_news'));
+
                 $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by id',
@@ -231,7 +233,7 @@ class NEWS extends REST_Controller
 
                 $this->response(array('result' => $data), 200); // 200 being the HTTP response code
             }
-	        else if(empty($id)){
+	        else if(empty($this->post('id_news'))){
                 $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by id',
@@ -276,10 +278,10 @@ class NEWS extends REST_Controller
 		}
     }
 
-    function news_location_post($location)
+    function news_location_post()
     {
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
-	        $data = $this->news_model->GetLocationNews($location);
+	        $data = $this->news_model->GetLocationNews($this->post('location'));
 
 	        if($data)
             {
@@ -296,7 +298,7 @@ class NEWS extends REST_Controller
 
                 $this->response(array('result' => $data), 200); // 200 being the HTTP response code
             }
-	        else if(empty($location)){
+	        else if(empty($this->post('location'))){
                 $api_data = array(
                     'api_key' => $this->post('api_key'),
                     'function_request' => 'news by location',
@@ -607,7 +609,7 @@ class NEWS extends REST_Controller
 		}
     }
 
-    function news_put($idnews){
+    function news_put(){
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
             $link = mysqli_connect("localhost", "root", "root", "plbtw");
 
@@ -624,7 +626,7 @@ class NEWS extends REST_Controller
     			'keyword' => mysqli_real_escape_string($link, $put_vars['keyword']),
             );
 
-            $result = $this->news_model->UpdateNews($data, $idnews);
+            $result = $this->news_model->UpdateNews($data, $put_vars['id_news']);
 
             if($result > 0){
                 $api_data = array(
@@ -678,9 +680,9 @@ class NEWS extends REST_Controller
 		}
     }
 
-    function news_delete($idnews){
+    function news_delete(){
         if($this->api_model->CheckAPIKEY($this->post('api_key')) > 0){
-            $result = $this->news_model->DeleteNews($idnews);
+            $result = $this->news_model->DeleteNews($this->post('id_news'));
 
             if($result > 0){
                 $api_data = array(
