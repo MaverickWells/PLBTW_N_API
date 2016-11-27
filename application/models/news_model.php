@@ -59,6 +59,7 @@ class NEWS_MODEL extends CI_Model {
 
 	public function GetCategoryNews($category)
 	{
+		$this->db->limit(30, 0);
 		$query = $this->db->get_where('news', array('category' => $category));
 		//var_dump($query->row_array());
 		return $query->result();
