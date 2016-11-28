@@ -607,9 +607,9 @@ class NEWS extends REST_Controller
 
             if(!empty($this->post('image'))){
                 $decoded_image = base64_decode($this->post('image'));
-                file_put_contents('uploads/'.$this->post('img_name').'jpg', $decoded_image);
+                file_put_contents('uploads/'.$this->post('img_name').'.jpg', $decoded_image);
 
-                $data['image'] = base_url().'uploads/'.$this->post('img_name').'jpg';
+                $data['image'] = base_url().'uploads/'.$this->post('img_name').'.jpg';
                 // return var_dump($data);
             }
 
