@@ -605,7 +605,7 @@ class NEWS extends REST_Controller
     			'keyword' => mysqli_real_escape_string($link, $this->input->post('keyword')),
             );
 
-            if(isset($this->post('image'))){
+            if(!empty($this->post('image'))){
                 $decoded_image = base64_decode($this->post('image'));
                 file_put_contents('uploads/'.$this->post('img_name').'jpg', $decoded_image);
 
