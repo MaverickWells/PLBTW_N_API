@@ -596,6 +596,7 @@ class NEWS extends REST_Controller
 
             $data = array(
     			'title' => mysqli_real_escape_string($link, $this->input->post('title')),
+                'date' => mysqli_real_escape_string($link, date_format(date_create($this->input->post('date')), 'Y-m-d')),
     			'content' => mysqli_real_escape_string($link, $this->input->post('content')),
     			'category' => mysqli_real_escape_string($link, $this->input->post('category')),
     			'sub_category' => mysqli_real_escape_string($link, $this->input->post('sub_category')),
